@@ -73,6 +73,13 @@ resource "proxmox_vm_qemu" "vm" {
       }
     }
   }
+
+  network {
+    id     = 0
+    model  = "virtio"
+    bridge = "vmbr0"
+    tag    = 0
+  }
 }
 
 terraform {
