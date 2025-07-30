@@ -1,25 +1,8 @@
-variable "k8s-controllers" {
-	type        = map(any)
-	default     = {
-		controller = {
-			vm_ip		= "192.168.122.111/24"
-			vm_id 	= "111"
-			vm_name = "k8s-controller"
-		}
-	}
-	description = "description"
-}
-
-variable "k8s-workers-count" {
-	default     = 2
-	description = "description"
-}
-
 module k8s-controllers {
 	source = "./modules/proxmox-vm"
 	
 	# тут хотим плодить контроллеры через for_each
-	for_each = var.k8s-controllers
+	for_each = var.k8s-controllers-params
 
 	vm_id   = each.value.vm_id
 	vm_ip   = each.value.vm_ip
