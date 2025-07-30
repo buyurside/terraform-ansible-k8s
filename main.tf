@@ -15,7 +15,7 @@ variable "k8s-workers-count" {
 	description = "description"
 }
 
-module k8s-controller-vm {
+module k8s-controllers {
 	source = "./modules/proxmox-vm"
 	
 	# тут хотим плодить контроллеры через for_each
@@ -39,14 +39,14 @@ module k8s-controller-vm {
   os_username   = var.os_username 
 }
 
-module k8s-workers-vm {
+module k8s-workers {
 	source  = "./modules/proxmox-vm"
 
 	count   = var.k8s-workers-count
 
 	vm_id   = 121 + count.index
 	vm_ip   = format("%s.%s/24", var.pve_subnet, (121 + count.index))
-	vm_name = format("k8s-worker-%02d", (count.index + 1))
+	vm_name = format("k8s-worker-%02d", (1 + count.index))
 
   ve_endpoint   = var.ve_endpoint 
   pve_node      = var.pve_node 
