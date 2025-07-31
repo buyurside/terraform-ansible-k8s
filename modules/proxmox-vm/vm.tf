@@ -27,7 +27,8 @@ resource "proxmox_vm_qemu" "vm" {
   scsihw    = "virtio-scsi-pci"
 
   # сеть
-  ipconfig0  = "ip=${var.vm_ip},gw=${var.pve_subnet_gw}"
+  ipconfig0  = "ip=${var.vm_ip}/24,gw=${var.pve_subnet_gw}"
+  # параметр для удобства вывода
   skip_ipv6  = true
 
 	# DNS

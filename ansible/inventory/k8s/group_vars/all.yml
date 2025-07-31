@@ -1,0 +1,18 @@
+---
+## ansible
+ansible_user: user
+ansible_port: 22
+ansible_ssh_common_args: '-F ./ssh_config'
+
+## base os section
+version_codename: noble
+
+basic_software_list:
+  - iputils-ping
+  - traceroute
+  - telnet
+  - curl
+  - wget
+  - ca-certificates
+  - vim
+  - htop
