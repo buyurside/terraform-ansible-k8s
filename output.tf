@@ -5,7 +5,7 @@ output "k8s-controllers-info" {
       "VM: %s\nID: %s\nipconfig: %s",
       mod.name,
       mod.vmid,
-      mod.ipconfig0
+      regex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}", mod.ipconfig0)
     )
   ])
 }
@@ -14,10 +14,10 @@ output "k8s-workers-info" {
   value = join("\n\n", [
     for name, mod in module.k8s-workers :
     format(
-      "VM: %s\nID: %s\nipconfig: %s",
+      "VM: %s\nID: %s\nipv4: %s",
       mod.name,
       mod.vmid,
-      mod.ipconfig0
+      regex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}", mod.ipconfig0)
     )
   ])
 }
