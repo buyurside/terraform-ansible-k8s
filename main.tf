@@ -67,3 +67,13 @@ resource "local_file" "ansible_inventory" {
   filename = "${path.module}/ansible/inventory/hosts.yml"
   content  = local.ansible_inventory
 }
+
+resource "null_resource" "always_run" {
+  provisioner "local-exec" {
+    command = "cd ./ansible/; ./install-k8s.sh"
+  }
+
+  triggers = {
+    always_run = timestamp()
+  }
+}
