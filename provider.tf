@@ -4,6 +4,14 @@ terraform {
       source  = "telmate/proxmox"
       version = "3.0.1-rc9"
     }
+    local = {
+      source = "hashicorp/local"
+      version = "2.5.3"
+    }
+    null = {
+      source = "hashicorp/null"
+      version = "3.2.4"
+    }
   }
 }
 
