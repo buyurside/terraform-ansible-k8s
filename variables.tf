@@ -81,21 +81,3 @@ variable "vm_name" {
   default     = "vm-01"
   description = "Название ВМ"
 }
-
-
-variable "k8s-controllers-params" {
-	type        = map(any)
-	default     = {
-		controller = {
-			vm_ip		= "192.168.122.111/24"
-			vm_id 	= "111"
-			vm_name = "k8s-controller"
-		}
-	}
-	description = "Мапа с ipv4, id и названием виртуальных машин."
-}
-
-variable "k8s-workers-count" {
-	default     = 2
-	description = "Количество воркер нод для кластера."
-}
