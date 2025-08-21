@@ -1,7 +1,7 @@
 ---
 inventory:
   hosts:
-%{~ for node in controllers }
+%{~ for node in masters }
     ${ node.name }:
       ansible_host: ${ node.ip }
       ansible_user: user
@@ -12,27 +12,28 @@ inventory:
       ansible_user: user
 %{~ endfor }
   children:
-    kube_control_plane:
+    k8s-master-nodes:
       hosts:
-%{~ for node in controllers }
+%{~ for node in masters }
         ${ node.name }:
 %{~ endfor }
-    kube_node:
+    k8s-worker-nodes:
       hosts:
 %{~ for node in workers }
         ${ node.name }:
 %{~ endfor }
-    etcd:
+    k8s-etcd-nodes:
       hosts:
-%{~ for node in controllers }
+%{~ for node in masters }
         ${ node.name }:
 %{~ endfor }
 %{~ for node in workers }
         ${ node.name }:
 %{~ endfor }
-    k8s_cluster:
+    k8s-cluster:
       children:
-        kube_control_plane:
-        kube_node:
-    calico_rr:
-      hosts: {}
+        k8s-master-nodes:
+        k8s-worker-nodes:
+    k8s-control-plane: # alias to "k8s-master-nodes"
+    	children:
+        k8s-master-nodes:
