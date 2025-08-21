@@ -1,0 +1,8 @@
+---
+- name: Basic utils
+  hosts: all
+  become: true
+
+  roles:
+    - install-docker
+    - k8s-install-dependencies
