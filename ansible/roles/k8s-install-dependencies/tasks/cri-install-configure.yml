@@ -1,0 +1,39 @@
+---
+- name: Install containerd
+  ansible.builtin.apt:
+    name: containerd.io
+    state: present
+
+- name: Create containerd directory
+  ansible.builtin.file:
+    path:  /etc/containerd
+    state: directory
+
+- name: Add containerd configuration
+  ansible.builtin.shell: /usr/bin/containerd config default > /etc/containerd/config.toml
+
+- name: Configuring Systemd cgroup driver for containerd
+  ansible.builtin.lineinfile:
+    path: /etc/containerd/config.toml
+    regexp: "            SystemdCgroup = false"
+    line:   "            SystemdCgroup = true"
+
+- name: Enable the containerd service and start service
+  ansible.builtin.systemd:
+    name:  containerd
+    state: restarted
+    enabled: yes
+    daemon-reload: yes
+
+- name: Create an empty file for the containerd module
+  ansible.builtin.copy:
+    content: ""
+    dest:  /etc/modules-load.d/containerd.conf
+    force: no
+
+- name: Configure modules for containerd
+  ansible.builtin.blockinfile:
+    path: /etc/modules-load.d/containerd.conf
+    block: |
+      overlay
+      br_netfilter

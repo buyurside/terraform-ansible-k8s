@@ -1,0 +1,7 @@
+---
+- name: Basic utils
+  hosts: all
+  become: true
+
+  roles:
+  - role: install-basic-utils

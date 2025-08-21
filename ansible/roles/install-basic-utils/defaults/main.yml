@@ -1,0 +1,13 @@
+---
+utils_list:
+  - iputils-ping
+  - traceroute
+  - telnet
+  - curl
+  - wget
+  - ca-certificates
+  - apt-transport-https
+  - software-properties-common
+  - gnupg
+  - htop
+  - vim

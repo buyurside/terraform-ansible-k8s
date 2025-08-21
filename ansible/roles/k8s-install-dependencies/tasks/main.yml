@@ -1,0 +1,26 @@
+#
+# взято из:
+#   https://habr.com/ru/companies/slurm/articles/810933/
+#
+---
+- name: Updates
+  ansible.builtin.apt:
+    update_cache: yes
+  notify: reboot host
+
+- name: Import swap and apparmor settings
+  ansible.builtin.import_tasks:
+    swap-apparmor.yml
+
+- name: Import cri [containerd] install and configure
+  ansible.builtin.import_tasks:
+    cri-install-configure.yml
+
+- name: Import k8s install and configure
+  ansible.builtin.import_tasks:
+    k8s-install-configure.yml
+
+- name: Import k8s-cri kernel params
+  ansible.builtin.import_tasks:
+    k8s-kernel-params.yml
+  notify: reboot host

@@ -1,0 +1,21 @@
+---
+- name: Disable SWAP
+  ansible.builtin.shell: |
+    swapoff -a
+
+- name: Disable SWAP in fstab
+  ansible.builtin.replace:
+    path:    /etc/fstab
+    regexp:  '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+
+- name: Stop and disable apparmor service
+  ansible.builtin.systemd:
+    name:    apparmor
+    state:   stopped
+    enabled: false
+
+- name: Uninstall apparmor
+  ansible.builtin.systemd:
+    name:  apparmor
+    state: absent

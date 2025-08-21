@@ -1,0 +1,8 @@
+---
+- name: Устананавливаю базовые утилиты
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop: "{{ basic_software_list }}"
+  retries: 3
