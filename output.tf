@@ -1,8 +1,8 @@
-output "k8s-controllers-info" {
+output "k8s-masters-info" {
   value = join("\n\n", [
-    for name, mod in module.k8s-controllers :
+    for name, mod in module.k8s-masters :
     format(
-      "VM: %s\nID: %s\nipconfig: %s",
+      "VM: %s\nID: %s\nipv4: %s",
       mod.name,
       mod.vmid,
       regex("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}", mod.ipconfig0)

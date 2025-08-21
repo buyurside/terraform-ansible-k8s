@@ -16,7 +16,7 @@ resource "proxmox_vm_qemu" "vm" {
 	# ОЗУ, ЦПУ
   memory    = 2048
   cpu {
-    cores 		= 1
+    cores 		= 2
     sockets   = 1
     type  = "host"
   }
