@@ -1,12 +1,12 @@
 ---
 - name: Create an empty file for K8S sysctl parameters
-  copy:
+  ansible.builtin.copy:
     content: ""
     dest: /etc/sysctl.d/99-kubernetes-cri.conf
     force: no
 
 - name: Configure sysctl parameters for K8S
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sysctl.d/99-kubernetes-cri.conf
     line: "{{ item }}"
   with_items:
@@ -15,7 +15,7 @@
     - "net.bridge.bridge-nf-call-ip6tables = 1"
 
 - name: Set parameters to 1 and write them into config
-  sysctl:
+  ansible.posix.sysctl:
     name:  "{{ item }}"
     value: 1
     sysctl_set: true
